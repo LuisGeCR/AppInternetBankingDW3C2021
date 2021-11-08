@@ -38,7 +38,7 @@
         AlternatingRowStyle-BackColor="LightBlue" OnRowCommand="gvServicios_RowCommand" >
         <Columns>
             <asp:BoundField HeaderText="Codigo" DataField="Codigo" />
-            <asp:BoundField HeaderText="Descripcion" DataField="Descripcion" />
+            <asp:BoundField HeaderText="Usuario" DataField="CodigoUsuario" />
             <asp:BoundField HeaderText="Estado" DataField="Estado" />
             <asp:ButtonField HeaderText="Modificar" CommandName="Modificar" 
                 ControlStyle-CssClass="btn btn-primary" ButtonType="Button" Text="Modificar" />

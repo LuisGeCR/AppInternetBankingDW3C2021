@@ -236,6 +236,7 @@
     <Compile Include="Controllers\EstadisticaManager.cs" />
     <Compile Include="Controllers\MarchamoManager.cs" />
     <Compile Include="Controllers\MonedaManager.cs" />
+    <Compile Include="Controllers\PagoManager.cs" />
     <Compile Include="Controllers\ServicioManager.cs" />
     <Compile Include="Controllers\SesionManager.cs" />
     <Compile Include="Controllers\TarjetaManager.cs" />

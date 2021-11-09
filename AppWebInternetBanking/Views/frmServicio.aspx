@@ -1,35 +1,33 @@
 ﻿<%@ Page Async="true" Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="frmServicio.aspx.cs" Inherits="AppWebInternetBanking.Views.frmServicio" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <script type="text/javascript">
-        
-       function openModal() {
-                 $('#myModal').modal('show'); //ventana de mensajes
-        }
+     <script type="text/javascript">
 
-        function openModalMantenimiento() {
-            $('#myModalMantenimiento').modal('show'); //ventana de mantenimiento
-        }    
+         function openModal() {
+             $('#myModal').modal('show'); //ventana de mensajes
+         }
 
-        function CloseModal() {
-            $('#myModal').modal('hide');//cierra ventana de mensajes
-        }
+         function openModalMantenimiento() {
+             $('#myModalMantenimiento').modal('show'); //ventana de mantenimiento
+         }
 
-        function CloseMantenimiento() {
-            $('#myModalMantenimiento').modal('hide'); //cierra ventana de mantenimiento
-        }
+         function CloseModal() {
+             $('#myModal').modal('hide');//cierra ventana de mensajes
+         }
 
-        $(document).ready(function () { //filtrar el datagridview
-            $("#myInput").on("keyup", function () {
-                var value = $(this).val().toLowerCase();
-                $("#MainContent_gvServicios tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
+         function CloseMantenimiento() {
+             $('#myModalMantenimiento').modal('hide'); //cierra ventana de mantenimiento
+         }
 
-    </script> 
-
+         $(document).ready(function () { //filtrar el datagridview
+             $("#myInput").on("keyup", function () {
+                 var value = $(this).val().toLowerCase();
+                 $("#MainContent_gvServicios tr").filter(function () {
+                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                 });
+             });
+         });
+     </script> 
     <h1>Mantenimiento de servicios</h1>
     <input id="myInput" placeholder="Buscar" class="form-control" type="text" />
     <asp:GridView ID="gvServicios" runat="server" AutoGenerateColumns="false"
@@ -51,7 +49,8 @@
     <br />
     <asp:Label ID="lblStatus" ForeColor="Maroon" runat="server" Visible="false" />
 
-    <!--VENTANA DE MANTENIMIENTO -->
+
+      <!--VENTANA DE MANTENIMIENTO -->
   <div id="myModalMantenimiento" class="modal fade" role="dialog">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -107,5 +106,3 @@
   </div>
 </div>
 </asp:Content>
-
-

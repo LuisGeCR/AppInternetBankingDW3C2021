@@ -42,7 +42,7 @@
             <asp:BoundField HeaderText="Usuario" DataField="CodigoUsuario" />
             <asp:BoundField HeaderText="Moneda" DataField="CodigoMoneda" />
             <asp:BoundField HeaderText="Descripcion" DataField="Descripcion" />
-            <asp:BoundField HeaderText="Saldo" DataField="Saldo" />
+            <asp:BoundField HeaderText="Saldo" DataField="Saldo" DataFormatString=""/>
             <asp:BoundField HeaderText="Estado" DataField="Estado" />
             <asp:ButtonField HeaderText="Modificar" CommandName="Modificar" 
                 ControlStyle-CssClass="btn btn-primary" ButtonType="Button" Text="Modificar" />

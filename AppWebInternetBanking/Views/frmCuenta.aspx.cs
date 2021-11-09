@@ -46,15 +46,13 @@ namespace AppWebInternetBanking.Views
 
         protected async void btnAceptarMant_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCodigoMant.Text)) //insertar
+            try
             {
-
                 Usuario usuarioExistente = await usuarioManager.ObtenerUsuario(Session["Token"].ToString(), txtUsuario.Text);
 
-                if ((!string.IsNullOrEmpty(usuarioExistente.Username)))
+                if (string.IsNullOrEmpty(txtCodigoMant.Text)) //insertar
                 {
-                                   
-                    
+
                     Cuenta cuenta = new Cuenta()
                     {
                         CodigoUsuario = Convert.ToInt32(txtUsuario.Text),
@@ -89,51 +87,53 @@ namespace AppWebInternetBanking.Views
                         lblResultado.ForeColor = Color.Maroon;
                     }
 
+
                 }
-                else
+                else // modificar
                 {
-                    lblResultado.Text = "El usuario no existe";
-                    lblResultado.Visible = true;
-                    lblResultado.ForeColor = Color.Maroon;
+                    Cuenta cuenta = new Cuenta()
+                    {
+                        Codigo = Convert.ToInt32(txtCodigoMant.Text),
+                        CodigoUsuario = Convert.ToInt32(txtUsuario.Text),
+                        CodigoMoneda = Convert.ToInt32(txtMoneda.Text),
+                        Descripcion = txtDescripcion.Text,
+                        IBAN = System.Text.Encoding.UTF8.GetBytes(txtIBAN.Text),
+                        Saldo = Convert.ToDecimal(txtSaldo.Text),
+                        Estado = ddlEstadoMant.SelectedValue
+                    };
+
+                    Cuenta cuentaActualizada = await cuentaManager.Actualizar(cuenta, Session["Token"].ToString());
+
+                    if (string.IsNullOrEmpty(cuentaActualizada.Descripcion))
+                    {
+                        lblResultado.Text = "La cuenta se ha actualizado con exito";
+                        lblResultado.Visible = true;
+                        lblResultado.ForeColor = Color.Green;
+                        btnAceptarMant.Visible = false;
+                        InicializarControles();
+
+                        Correo correo = new Correo();
+                        correo.Enviar("Cuenta actualizada con exito", cuentaActualizada.Descripcion, "lhidalgo22@gmail.com",
+                            Convert.ToInt32(Session["CodigoUsuario"].ToString()));
+
+                        ScriptManager.RegisterStartupScript(this,
+                    this.GetType(), "LaunchServerSide", "$(function() {openModalMantenimiento(); } );", true);
+                    }
+                    else
+                    {
+                        lblResultado.Text = "Hubo un error la actualizacion";
+                        lblResultado.Visible = true;
+                        lblResultado.ForeColor = Color.Maroon;
+                    }
                 }
             }
-            else // modificar
+            catch(Exception)
             {
-                Cuenta cuenta = new Cuenta()
-                {
-                    Codigo = Convert.ToInt32(txtCodigoMant.Text),
-                    CodigoUsuario = Convert.ToInt32(txtUsuario.Text),
-                    CodigoMoneda = Convert.ToInt32(txtMoneda.Text),
-                    Descripcion = txtDescripcion.Text,
-                    IBAN = System.Text.Encoding.UTF8.GetBytes(txtIBAN.Text),
-                    Saldo = Convert.ToDecimal(txtSaldo.Text),
-                    Estado = ddlEstadoMant.SelectedValue
-                };
-
-                Cuenta cuentaActualizada = await cuentaManager.Actualizar(cuenta, Session["Token"].ToString());
-
-                if (!string.IsNullOrEmpty(cuentaActualizada.Descripcion))
-                {
-                    lblResultado.Text = "La cuenta se ha actualizado con exito";
-                    lblResultado.Visible = true;
-                    lblResultado.ForeColor = Color.Green;
-                    btnAceptarMant.Visible = false;
-                    InicializarControles();
-
-                    Correo correo = new Correo();
-                    correo.Enviar("Cuenta actualizada con exito", cuentaActualizada.Descripcion, "lhidalgo22@gmail.com",
-                        Convert.ToInt32(Session["CodigoUsuario"].ToString()));
-
-                    ScriptManager.RegisterStartupScript(this,
-                this.GetType(), "LaunchServerSide", "$(function() {openModalMantenimiento(); } );", true);
-                }
-                else
-                {
-                    lblResultado.Text = "Hubo un error al efectuar la operacion";
-                    lblResultado.Visible = true;
-                    lblResultado.ForeColor = Color.Maroon;
-                }
+                lblResultado.Text = "El usuario no existe";
+                lblResultado.Visible = true;
+                lblResultado.ForeColor = Color.Maroon;
             }
+
         }
 
         protected void btnCancelarMant_Click(object sender, EventArgs e)
@@ -193,10 +193,13 @@ namespace AppWebInternetBanking.Views
                 this.GetType(), "LaunchServerSide", "$(function() {openModalMantenimiento(); } );", true);
         }
 
-        protected void gvCuentas_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected async void gvCuentas_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow row = gvCuentas.Rows[index];
+
+            Cuenta cuentaExistente = await cuentaManager.ObtenerCuenta(Session["Token"].ToString(), row.Cells[0].Text.Trim());
+            string iban = System.Text.Encoding.UTF8.GetString(cuentaExistente.IBAN);
 
             switch (e.CommandName)
             {
@@ -204,7 +207,11 @@ namespace AppWebInternetBanking.Views
                     ltrTituloMantenimiento.Text = "Modificar cuenta";
                     btnAceptarMant.ControlStyle.CssClass = "btn btn-primary";
                     txtCodigoMant.Text = row.Cells[0].Text.Trim();
-                    txtDescripcion.Text = row.Cells[1].Text.Trim();
+                    txtUsuario.Text = row.Cells[1].Text.Trim();
+                    txtMoneda.Text = row.Cells[2].Text.Trim();
+                    txtDescripcion.Text = row.Cells[3].Text.Trim();
+                    txtIBAN.Text = iban.Trim();
+                    txtSaldo.Text = row.Cells[4].Text.Trim();
                     btnAceptarMant.Visible = true;
                     ScriptManager.RegisterStartupScript(this,
                 this.GetType(), "LaunchServerSide", "$(function() {openModalMantenimiento(); } );", true);

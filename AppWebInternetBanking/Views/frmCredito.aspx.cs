@@ -47,14 +47,19 @@ namespace AppWebInternetBanking.Views
             if (string.IsNullOrEmpty(txtCodigoMant.Text)) //insertar
             {
                 Credito credito = new Credito()
-                {
+                {   
+                    CodigoUsuario = Convert.ToInt32(txtCodigoUsuario.Text),
                     Descripcion = txtDescripcion.Text,
+                    Monto = Convert.ToDecimal(txtMonto.Text),
+                    CodigoMoneda = Convert.ToInt32(txtCodigoMoneda.Text),
+                    Plazo = Convert.ToInt32(txtPlazo.Text),
+                    Interes = Convert.ToDecimal(txtInteres.Text),
                     Estado = ddlEstadoMant.SelectedValue
                 };
 
                 Credito creditoIngresado = await creditoManager.Ingresar(credito, Session["Token"].ToString());
 
-                if (!string.IsNullOrEmpty(creditoIngresado.Descripcion))
+                if (!string.IsNullOrEmpty(creditoIngresado.CodigoMoneda.ToString()))
                 {
                     lblResultado.Text = "Servicio ingresado con exito";
                     lblResultado.Visible = true;
@@ -78,17 +83,18 @@ namespace AppWebInternetBanking.Views
                 Credito credito = new Credito()
                 {
                     Codigo = Convert.ToInt32(txtCodigoMant.Text),
-                    Monto = Convert.ToDecimal(txtCodigoUsuario.Text),
-                    CodigoMoneda = Convert.ToInt32(txtCodigoUsuario.Text),
-                    Plazo = Convert.ToInt32(txtCodigoUsuario.Text),
-                    Interes = Convert.ToDecimal(txtCodigoUsuario.Text),
+                    CodigoUsuario = Convert.ToInt32(txtCodigoUsuario.Text),
                     Descripcion = txtDescripcion.Text,
+                    Monto = Convert.ToDecimal(txtMonto.Text),
+                    CodigoMoneda = Convert.ToInt32(txtCodigoMoneda.Text),
+                    Plazo = Convert.ToInt32(txtPlazo.Text),
+                    Interes = Convert.ToDecimal(txtInteres.Text),
                     Estado = ddlEstadoMant.SelectedValue
                 };
 
                 Credito creditoActualizado = await creditoManager.Actualizar(credito, Session["Token"].ToString());
 
-                if (!string.IsNullOrEmpty(creditoActualizado.Descripcion))
+                if (!string.IsNullOrEmpty(creditoActualizado.CodigoMoneda.ToString()))
                 {
                     lblResultado.Text = "credito actualizado con exito";
                     lblResultado.Visible = true;
@@ -135,7 +141,7 @@ namespace AppWebInternetBanking.Views
                     CodigoUsuario =
                     Convert.ToInt32(Session["CodigoUsuario"].ToString()),
                     FechaHora = DateTime.Now,
-                    Vista = "frmServicio.aspx",
+                    Vista = "frmCredito.aspx",
                     Accion = "btnAceptarModal_Click",
                     Fuente = ex.Source,
                     Numero = ex.HResult,
@@ -172,10 +178,10 @@ namespace AppWebInternetBanking.Views
             ddlEstadoMant.Enabled = false;
             txtCodigoMant.Text = string.Empty;
             txtCodigoUsuario.Text = string.Empty;
-            ltrMonto.Text = string.Empty;
-            ltrCodigoMoneda.Text = string.Empty;
-            ltrPlazo.Text = string.Empty;
-            ltrInteres.Text = string.Empty;
+            txtMonto.Text = string.Empty;
+            txtCodigoMoneda.Text = string.Empty;
+            txtPlazo.Text = string.Empty;
+            txtInteres.Text = string.Empty;
             txtDescripcion.Text = string.Empty;
             ScriptManager.RegisterStartupScript(this,
                 this.GetType(), "LaunchServerSide", "$(function() {openModalMantenimiento(); } );", true);

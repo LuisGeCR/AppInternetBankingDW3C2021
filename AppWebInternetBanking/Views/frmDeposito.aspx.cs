@@ -81,7 +81,7 @@ namespace AppWebInternetBanking.Views
                 Deposito deposito = new Deposito()
                 {
                     CodigoUsuario = Convert.ToInt32(txtCodigoUsuario.Text),
-                    Monto = Convert.ToInt32(txtCodigoUsuario.Text),
+                    Monto = Convert.ToDecimal(txtCodigoUsuario.Text),
                     CodigoMoneda = Convert.ToInt32(txtCodigoUsuario.Text),
                     Plazo = Convert.ToInt32(txtCodigoUsuario.Text),
                     Interes = Convert.ToDecimal(txtCodigoUsuario.Text),

@@ -32,13 +32,18 @@
 
     <h1>Mantenimiento de creditos</h1>
     <input id="myInput" placeholder="Buscar" class="form-control" type="text" />
-    <asp:GridView ID="gvServicios" runat="server" AutoGenerateColumns="false"
+    <asp:GridView ID="gvCreditos" runat="server" AutoGenerateColumns="false"
       CssClass="table table-sm" HeaderStyle-CssClass="thead-dark" 
         HeaderStyle-BackColor="#243054" HeaderStyle-ForeColor="White" 
-        AlternatingRowStyle-BackColor="LightBlue" OnRowCommand="gvServicios_RowCommand" >
+        AlternatingRowStyle-BackColor="LightBlue" OnRowCommand="gvCreditos_RowCommand" >
         <Columns>
             <asp:BoundField HeaderText="Codigo" DataField="Codigo" />
+            <asp:BoundField HeaderText="CodigoUsuario" DataField="CodigoUsuario" />
             <asp:BoundField HeaderText="Descripcion" DataField="Descripcion" />
+            <asp:BoundField HeaderText="Monto" DataField="Monto" />
+            <asp:BoundField HeaderText="CodigoMoneda" DataField="CodigoMoneda" />
+            <asp:BoundField HeaderText="Plazo" DataField="Plazo" />
+            <asp:BoundField HeaderText="Interes" DataField="Interes" />
             <asp:BoundField HeaderText="Estado" DataField="Estado" />
             <asp:ButtonField HeaderText="Modificar" CommandName="Modificar" 
                 ControlStyle-CssClass="btn btn-primary" ButtonType="Button" Text="Modificar" />
@@ -66,9 +71,30 @@
                   <td><asp:TextBox ID="txtCodigoMant" runat="server" Enabled="false" CssClass="form-control" /></td>
               </tr>
               <tr>
+                  <td><asp:Literal ID="ltrCodigoUsuario" Text="CodigoUsuario" runat="server" /></td>
+                  <td><asp:TextBox ID="txtCodigoUsuario" runat="server" CssClass="form-control" /></td>
+              </tr>
+              <tr>
                   <td><asp:Literal ID="ltrDescripcion" Text="Descripcion" runat="server" /></td>
                   <td><asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" /></td>
               </tr>
+                <tr>
+                  <td><asp:Literal ID="ltrMonto" Text="Monto" runat="server" /></td>
+                  <td><asp:TextBox ID="txtMonto" runat="server" CssClass="form-control" /></td>
+              </tr>
+                <tr>
+                  <td><asp:Literal ID="ltrCodigoMoneda" Text="CodigoMoneda" runat="server" /></td>
+                  <td><asp:TextBox ID="txtCodigoMoneda" runat="server" CssClass="form-control" /></td>
+              </tr>
+                <tr>
+                  <td><asp:Literal ID="ltrPlazo" Text="Plazo" runat="server" /></td>
+                  <td><asp:TextBox ID="txtPlazo" runat="server" CssClass="form-control" /></td>
+              </tr>
+                <tr>
+                  <td><asp:Literal ID="ltrInteres" Text="Interes" runat="server" /></td>
+                  <td><asp:TextBox ID="txtInteres" runat="server" CssClass="form-control" /></td>
+              </tr>
+              
               <tr>
                   <td><asp:Literal Text="Estado" runat="server" /></td>
                   <td> <asp:DropDownList ID="ddlEstadoMant"  CssClass="form-control" runat="server">

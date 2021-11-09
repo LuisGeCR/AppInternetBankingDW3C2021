@@ -49,10 +49,10 @@ namespace AppWebInternetBanking.Views
                 Deposito deposito = new Deposito()
                 {
                     CodigoUsuario = Convert.ToInt32(txtCodigoUsuario.Text),
-                    Monto = Convert.ToInt32(txtCodigoUsuario.Text),
-                    CodigoMoneda = Convert.ToInt32(txtCodigoUsuario.Text),
-                    Plazo = Convert.ToInt32(txtCodigoUsuario.Text),
-                    Interes = Convert.ToDecimal(txtCodigoUsuario.Text),
+                    Monto = Convert.ToInt32(txtCodigoMoneda.Text),
+                    CodigoMoneda = Convert.ToInt32(txtCodigoMoneda.Text),
+                    Plazo = Convert.ToInt32(txtPlazo.Text),
+                    Interes = Convert.ToDecimal(txtInteres.Text),
                     Estado = ddlEstadoMant.SelectedValue
                 };
 
@@ -80,11 +80,12 @@ namespace AppWebInternetBanking.Views
             {
                 Deposito deposito = new Deposito()
                 {
+                    Codigo = Convert.ToInt32(txtCodigoMant.Text),
                     CodigoUsuario = Convert.ToInt32(txtCodigoUsuario.Text),
-                    Monto = Convert.ToDecimal(txtCodigoUsuario.Text),
-                    CodigoMoneda = Convert.ToInt32(txtCodigoUsuario.Text),
-                    Plazo = Convert.ToInt32(txtCodigoUsuario.Text),
-                    Interes = Convert.ToDecimal(txtCodigoUsuario.Text),
+                    Monto = Convert.ToInt32(txtCodigoMoneda.Text),
+                    CodigoMoneda = Convert.ToInt32(txtCodigoMoneda.Text),
+                    Plazo = Convert.ToInt32(txtPlazo.Text),
+                    Interes = Convert.ToDecimal(txtInteres.Text),
                     Estado = ddlEstadoMant.SelectedValue
                 };
 
@@ -172,10 +173,10 @@ namespace AppWebInternetBanking.Views
             ddlEstadoMant.Enabled = false;
             txtCodigoMant.Text = string.Empty;
             txtCodigoUsuario.Text = string.Empty;
-            ltrMonto.Text = string.Empty;
-            ltrCodigoMoneda.Text = string.Empty;
-            ltrPlazo.Text = string.Empty;
-            ltrInteres.Text = string.Empty;
+            txtMonto.Text = string.Empty;
+            txtCodigoMoneda.Text = string.Empty;
+            txtPlazo.Text = string.Empty;
+            txtInteres.Text = string.Empty;
             ScriptManager.RegisterStartupScript(this,
                 this.GetType(), "LaunchServerSide", "$(function() {openModalMantenimiento(); } );", true);
         }

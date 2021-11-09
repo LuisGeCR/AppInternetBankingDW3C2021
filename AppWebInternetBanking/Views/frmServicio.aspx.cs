@@ -64,7 +64,7 @@ namespace AppWebInternetBanking.Views
                     InicializarControles();
 
                     Correo correo = new Correo();
-                    correo.Enviar("Nuevo servicio incluido", servicioIngresado.Descripcion, "lhidalgo22@gmail.com",
+                    correo.Enviar("Nuevo servicio incluido", servicioIngresado.Descripcion, "svillagra07@gmail.com",
                         Convert.ToInt32(Session["CodigoUsuario"].ToString()));
 
                     ScriptManager.RegisterStartupScript(this,
@@ -97,7 +97,7 @@ namespace AppWebInternetBanking.Views
                     InicializarControles();
 
                     Correo correo = new Correo();
-                    correo.Enviar("Servicio actualizado con exito", servicioActualizado.Descripcion, "lhidalgo22@gmail.com",
+                    correo.Enviar("Servicio actualizado con exito", servicioActualizado.Descripcion, "svillagra07@gmail.com",
                         Convert.ToInt32(Session["CodigoUsuario"].ToString()));
 
                     ScriptManager.RegisterStartupScript(this,

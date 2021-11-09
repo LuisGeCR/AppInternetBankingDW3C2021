@@ -35,5 +35,26 @@ namespace AppWebInternetBanking.Controllers
 
             return JsonConvert.DeserializeObject<Usuario>(await response.Content.ReadAsStringAsync());
         }
+
+        string UrlBase = "http://localhost:49220/api/Usuarios/";
+
+        HttpClient GetClient(string token)
+        {
+            HttpClient httpClient = new HttpClient();
+
+            httpClient.DefaultRequestHeaders.Add("Authorization", token);
+            httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+
+            return httpClient;
+        }
+
+        public async Task<Usuario> ObtenerUsuario(string token, string codigo)
+        {
+            HttpClient httpClient = GetClient(token);
+
+            var response = await httpClient.GetStringAsync(string.Concat(UrlBase, codigo));
+
+            return JsonConvert.DeserializeObject<Usuario>(response);
+        }
     }
 }

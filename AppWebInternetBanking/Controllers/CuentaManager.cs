@@ -77,5 +77,7 @@ namespace AppWebInternetBanking.Controllers
             return JsonConvert.DeserializeObject<Cuenta>(await
                 response.Content.ReadAsStringAsync());
         }
+
+
     }
 }

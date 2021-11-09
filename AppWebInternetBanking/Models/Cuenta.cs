@@ -11,7 +11,7 @@ namespace AppWebInternetBanking.Models
         public int CodigoUsuario { get; set; }
         public int CodigoMoneda { get; set; }
         public string Descripcion { get; set; }
-        public string IBAN { get; set; }
+        public byte[] IBAN { get; set; }
         public decimal Saldo { get; set; }
         public string Estado { get; set; }
     

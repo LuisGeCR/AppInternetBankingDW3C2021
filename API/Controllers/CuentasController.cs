@@ -38,16 +38,11 @@ namespace API.Controllers
 
         // PUT: api/Cuentas/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCuenta(int id, Cuenta cuenta)
+        public IHttpActionResult PutCuenta(Cuenta cuenta)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            if (id != cuenta.Codigo)
-            {
-                return BadRequest();
             }
 
             db.Entry(cuenta).State = EntityState.Modified;
@@ -58,7 +53,7 @@ namespace API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CuentaExists(id))
+                if (!CuentaExists(cuenta.Codigo))
                 {
                     return NotFound();
                 }
@@ -68,7 +63,7 @@ namespace API.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(cuenta);
         }
 
         // POST: api/Cuentas

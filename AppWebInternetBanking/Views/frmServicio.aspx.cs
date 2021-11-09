@@ -163,11 +163,13 @@ namespace AppWebInternetBanking.Views
             txtCodigoMant.Visible = true;
             txtDescripcion.Visible = true;
             ltrDescripcion.Visible = true;
-            ddlEstadoMant.Enabled = false;
+            ddlEstadoMant.Enabled = true;
             txtCodigoMant.Text = string.Empty;
             txtDescripcion.Text = string.Empty;
+            lblResultado.Text = string.Empty;
             ScriptManager.RegisterStartupScript(this,
                 this.GetType(), "LaunchServerSide", "$(function() {openModalMantenimiento(); } );", true);
+
         }
 
         protected void gvServicios_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -183,6 +185,8 @@ namespace AppWebInternetBanking.Views
                     txtCodigoMant.Text = row.Cells[0].Text.Trim();
                     txtDescripcion.Text = row.Cells[1].Text.Trim();
                     btnAceptarMant.Visible = true;
+                    lblResultado.Text = string.Empty;
+                    ddlEstadoMant.Enabled = true;
                     ScriptManager.RegisterStartupScript(this,
                 this.GetType(), "LaunchServerSide", "$(function() {openModalMantenimiento(); } );", true);
                     break;

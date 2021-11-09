@@ -38,16 +38,11 @@ namespace API.Controllers
 
         // PUT: api/Tarjetas/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutTarjeta(int id, Tarjeta tarjeta)
+        public IHttpActionResult PutTarjeta(Tarjeta tarjeta)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            if (id != tarjeta.Codigo)
-            {
-                return BadRequest();
             }
 
             db.Entry(tarjeta).State = EntityState.Modified;
@@ -58,7 +53,7 @@ namespace API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TarjetaExists(id))
+                if (!TarjetaExists(tarjeta.Codigo))
                 {
                     return NotFound();
                 }
@@ -68,7 +63,7 @@ namespace API.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok (tarjeta);
         }
 
         // POST: api/Tarjetas

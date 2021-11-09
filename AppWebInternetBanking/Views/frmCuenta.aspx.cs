@@ -16,7 +16,6 @@ namespace AppWebInternetBanking.Views
         IEnumerable<Cuenta> cuentas = new ObservableCollection<Cuenta>();
         CuentaManager cuentaManager = new CuentaManager();
         UsuarioManager usuarioManager = new UsuarioManager();
-
         static string _codigo = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -104,7 +103,7 @@ namespace AppWebInternetBanking.Views
 
                     Cuenta cuentaActualizada = await cuentaManager.Actualizar(cuenta, Session["Token"].ToString());
 
-                    if (string.IsNullOrEmpty(cuentaActualizada.Descripcion))
+                    if (!string.IsNullOrEmpty(cuentaActualizada.Descripcion))
                     {
                         lblResultado.Text = "La cuenta se ha actualizado con exito";
                         lblResultado.Visible = true;
@@ -132,6 +131,9 @@ namespace AppWebInternetBanking.Views
                 lblResultado.Text = "El usuario no existe";
                 lblResultado.Visible = true;
                 lblResultado.ForeColor = Color.Maroon;
+
+                ScriptManager.RegisterStartupScript(this,
+                    this.GetType(), "LaunchServerSide", "$(function() {openModalMantenimiento(); } );", true);
             }
 
         }
@@ -186,9 +188,10 @@ namespace AppWebInternetBanking.Views
             txtCodigoMant.Visible = true;                 
             txtDescripcion.Visible = true;
             ltrDescripcion.Visible = true;
-            ddlEstadoMant.Enabled = false;
+            ddlEstadoMant.Enabled = true;
             txtCodigoMant.Text = string.Empty;
             txtDescripcion.Text = string.Empty;
+            lblResultado.Text = string.Empty;
             ScriptManager.RegisterStartupScript(this,
                 this.GetType(), "LaunchServerSide", "$(function() {openModalMantenimiento(); } );", true);
         }
@@ -213,6 +216,8 @@ namespace AppWebInternetBanking.Views
                     txtIBAN.Text = iban.Trim();
                     txtSaldo.Text = row.Cells[4].Text.Trim();
                     btnAceptarMant.Visible = true;
+                    lblResultado.Text = string.Empty;
+                    ddlEstadoMant.Enabled = true;
                     ScriptManager.RegisterStartupScript(this,
                 this.GetType(), "LaunchServerSide", "$(function() {openModalMantenimiento(); } );", true);
                     break;

@@ -11,7 +11,7 @@ namespace AppWebInternetBanking.CustomErrors
 {
     public partial class frmError : System.Web.UI.Page
     {
-        protected async void Page_Load(object sender, EventArgs e)
+        async protected void Page_Load(object sender, EventArgs e)
         {
             Exception err = Session["LastError"] as Exception;
 
@@ -24,7 +24,7 @@ namespace AppWebInternetBanking.CustomErrors
                 ErrorManager errorManager = new ErrorManager();
                 Error errorApi = new Error()
                 {
-                    CodigoUsuario = 0,
+                    CodigoUsuario = Convert.ToInt32(Session["CodigoUsuario"].ToString()),
                     FechaHora = DateTime.Now,
                     Vista = "frmError.aspx",
                     Accion = "Page_load",

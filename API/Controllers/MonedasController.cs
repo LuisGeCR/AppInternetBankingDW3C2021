@@ -37,17 +37,12 @@ namespace API.Controllers
         }
 
         // PUT: api/Monedas/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutMoneda(int id, Moneda moneda)
+        [ResponseType(typeof(Moneda))]
+        public IHttpActionResult PutMoneda(Moneda moneda)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            if (id != moneda.Codigo)
-            {
-                return BadRequest();
             }
 
             db.Entry(moneda).State = EntityState.Modified;
@@ -58,7 +53,7 @@ namespace API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MonedaExists(id))
+                if (!MonedaExists(moneda.Codigo))
                 {
                     return NotFound();
                 }
@@ -68,7 +63,7 @@ namespace API.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(moneda);
         }
 
         // POST: api/Monedas
